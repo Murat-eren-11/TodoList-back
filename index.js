@@ -10,7 +10,7 @@ const app = express();
 app.use(
   cors({
     origin: "https://murattodolist.netlify.app",
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
