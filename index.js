@@ -20,7 +20,11 @@ app.get("/", async (req, res) => {
   try {
     const tasks = await Tasks.find();
     res.status(200).json(tasks);
-  } catch (error) {}
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la récupération des tâches." });
+  }
 });
 
 app.post("/newtask", async (req, res) => {
@@ -31,17 +35,26 @@ app.post("/newtask", async (req, res) => {
     await newTask.save();
     res.status(200).json({ task_name: newTask.task_name });
   } catch (error) {
-    res.json({ error: error.message });
+    console.error("Erreur lors de l'ajout d'une tâche :", error);
+    res.status(500).json({ error: "Erreur lors de l'ajout d'une tâche." });
   }
 });
 
 app.delete("/delete/:id", async (req, res) => {
   try {
     const taskId = req.params.id;
-    await Tasks.findByIdAndDelete(taskId);
+    const deletedTask = await Tasks.findByIdAndDelete(taskId);
+    if (!deletedTask) {
+      return res
+        .status(404)
+        .json({ error: "La tâche à supprimer est introuvable." });
+    }
     res.status(200).json({ message: "Tâche supprimée avec succès" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Erreur lors de la suppression de la tâche :", error);
+    res
+      .status(500)
+      .json({ error: "Erreur lors de la suppression de la tâche." });
   }
 });
 
