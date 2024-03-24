@@ -7,7 +7,13 @@ mongoose.connect(process.env.MONGODB_URI);
 const Tasks = require("./models/Task");
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://example.com", // Remplacez par votre domaine autorisé
+    methods: ["GET", "POST"], // Méthodes HTTP autorisées
+    allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
+  })
+);
 app.use(express.json());
 
 app.get("/", async (req, res) => {
