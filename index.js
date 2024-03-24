@@ -23,7 +23,7 @@ app.get("/", async (req, res) => {
   } catch (error) {}
 });
 
-app.post("/", async (req, res) => {
+app.post("/newtask", async (req, res) => {
   try {
     const newTasks = new Tasks({
       task_name: req.body.task_name,
@@ -32,6 +32,16 @@ app.post("/", async (req, res) => {
     res.status(200).json(newTasks);
   } catch (error) {
     res.json({ error: error.message });
+  }
+});
+
+app.delete("/delete/:id", async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    await Tasks.findByIdAndDelete(taskId);
+    res.status(200).json({ message: "Tâche supprimée avec succès" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
