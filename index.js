@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const axios = require("axios");
 const mongoose = require("mongoose");
 require("dotenv").config;
 
@@ -8,8 +7,8 @@ mongoose.connect(process.env.MONGODB_URI);
 const Tasks = require("./models/Task");
 const app = express();
 
-app.use(cors);
-app.use(express.json);
+app.use(cors());
+app.use(express.json());
 
 app.get("/", async (req, res) => {
   try {
@@ -21,7 +20,7 @@ app.get("/", async (req, res) => {
 app.post("/", async (req, res) => {
   try {
     const newTasks = new Tasks({
-      task_name: req.body.tasks_name,
+      task_name: req.body.task_name,
     });
     await newTasks.save();
     res.status(200).json(newTasks);
