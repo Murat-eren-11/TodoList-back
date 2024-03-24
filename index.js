@@ -40,10 +40,10 @@ app.post("/newtask", async (req, res) => {
   }
 });
 
-app.delete("/delete/:id", async (req, res) => {
+app.delete("/delete/:taskText", async (req, res) => {
   try {
-    const taskId = req.params.id;
-    const deletedTask = await Tasks.findByIdAndDelete(taskId);
+    const taskText = req.params.taskText;
+    const deletedTask = await Tasks.findByIdAndDelete({ task_name: taskText });
     if (!deletedTask) {
       return res
         .status(404)
