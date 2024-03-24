@@ -25,11 +25,11 @@ app.get("/", async (req, res) => {
 
 app.post("/newtask", async (req, res) => {
   try {
-    const newTasks = new Tasks({
+    const newTask = new Tasks({
       task_name: req.body.task_name,
     });
-    await newTasks.save();
-    res.status(200).json(newTasks);
+    await newTask.save();
+    res.status(200).json({ task_name: newTask.task_name });
   } catch (error) {
     res.json({ error: error.message });
   }
