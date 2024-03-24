@@ -9,9 +9,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://example.com", // Remplacez par votre domaine autorisé
-    methods: ["GET", "POST"], // Méthodes HTTP autorisées
-    allowedHeaders: ["Content-Type", "Authorization"], // En-têtes autorisés
+    origin: "https://murattodolist.netlify.app/",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());
