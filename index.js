@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config;
+require("dotenv").config();
 
 mongoose.connect(process.env.MONGODB_URI);
 const Tasks = require("./models/Task");
@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://murattodolist.netlify.app/",
+    origin: "https://murattodolist.netlify.app",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
